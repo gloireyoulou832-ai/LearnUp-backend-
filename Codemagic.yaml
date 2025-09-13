@@ -1,0 +1,11 @@
+workflows:
+  backend-workflow:
+    name: LearnUp Backend
+    environment:
+      node: latest
+    scripts:
+      - npm install
+      - npm start
+    artifacts:
+      - server.js
+      - package.json
