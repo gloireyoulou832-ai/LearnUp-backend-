@@ -1,5 +1,6 @@
+
 workflows:
-  backend-workflow:
+  backend:
     name: LearnUp Backend
     environment:
       node: latest
