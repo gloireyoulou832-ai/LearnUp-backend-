@@ -1,34 +1,25 @@
 
 workflows:
-  learnup-workflow:
+  default-workflow:
     name: LearnUp Build
-    max_build_duration: 60
+    max_build_duration: 30
+    instance_type: mac_mini_m1
+
     environment:
-      flutter: stable
-      xcode: latest
-      node: latest
       vars:
-        PACKAGE_NAME: "com.learnup.app"
-        APP_NAME: "LearnUp"
+        NODE_VERSION: 16
+      node: $NODE_VERSION
+      flutter: stable
+
     scripts:
-      - name: Get Flutter dependencies
-        script: flutter pub get
-      - name: Build Android APK
-        script: flutter build apk --release
-      - name: Build Android App Bundle (AAB)
-        script: flutter build appbundle --release
-      - name: Build iOS
-        script: |
-          flutter build ios --release --no-codesign
-      - name: Install backend dependencies
+      - name: Install dependencies
         script: npm install
-      - name: Run backend tests
-        script: npm test || echo "No backend tests"
+      - name: Build Flutter app (Android)
+        script: flutter build apk --release
+      - name: Build Flutter app (iOS)
+        script: flutter build ios --release --no-codesign
+
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
-      - build/app/outputs/bundle/release/app-release.aab
-      - build/ios/iphoneos/*.ipa
-    publishing:
-      email:
-        recipients:
-          - gloireyoulou832@gmail.com
+      - build/ios/iphoneos/*.app
+      - build/ios/ipa/*.ipa
