@@ -1,2 +1,0 @@
-# LearnUp-backend-
-App 
